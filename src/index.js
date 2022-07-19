@@ -21,7 +21,7 @@ app.post('/users', (request, response) => {
 
   const { name, username } = request.body;
 
-  const user = users.find((user) => user.name === name);
+  const user = users.find((user) => user.username === username);
 
   if (user) {
     response.status(401).json({
