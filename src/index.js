@@ -34,7 +34,8 @@ app.post('/users', (request, response) => {
     {
       id: uuid(),
       name,
-      username
+      username,
+      toodos: []
     }
   );
 
@@ -46,7 +47,11 @@ app.get('/users', (request, response) => {
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { username } = request.header.username;
+
+  const { user } = users.find((user) => user.username === username);
+
+  return response.json(user.todo);
 });
 
 app.post('/todos', checksExistsUserAccount, (request, response) => {
