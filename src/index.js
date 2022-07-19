@@ -14,20 +14,21 @@ const users = [];
 function checksExistsUserAccount(request, response, next) {
   const { name, username } = request.body;
 
-  const user = users.find((user) => user.name === name);
-
-  if (user) {
-    response.status(500).json({
-      status: "error",
-      message: `The user exists`,
-    });
-  }
   next();
 }
 
 app.post('/users', (request, response) => {
 
   const { name, username } = request.body;
+
+  const user = users.find((user) => user.name === name);
+
+  if (user) {
+    response.status(401).json({
+      status: "error",
+      message: `The user exists`,
+    });
+  }
 
   users.push(
     {
@@ -41,7 +42,7 @@ app.post('/users', (request, response) => {
 });
 
 app.get('/users', (request, response) => {
-
+  return response.json(all);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
