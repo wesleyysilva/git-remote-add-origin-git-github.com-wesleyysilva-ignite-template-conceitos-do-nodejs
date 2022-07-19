@@ -30,7 +30,7 @@ describe('Todos', () => {
       expect.arrayContaining([
         todoResponse.body
       ]),
-    )
+    );
   });
 
   it('should be able to create a new todo', async () => {
@@ -92,20 +92,6 @@ describe('Todos', () => {
       deadline: todoDate.toISOString(),
       done: false
     });
-
-    const getAllTodosResponse = await request(app)
-      .get((`/todos/`))
-      .set('username', userResponse.body.username);
-    
-    expect(
-      getAllTodosResponse.body.find(
-        (todo)=>todo.id === todoResponse.body.id
-      ))
-    .toMatchObject({
-      title: 'update title',
-      deadline: todoDate.toISOString(),
-      done: false
-    });
   });
 
   it('should not be able to update a non existing todo', async () => {
@@ -150,7 +136,7 @@ describe('Todos', () => {
 
     const response = await request(app)
       .patch(`/todos/${todoResponse.body.id}/done`)
-      .set('username', userResponse.body.username);
+      .set('username', userResponse.headers.username);
 
     expect(response.body).toMatchObject({
       ...todoResponse.body,
