@@ -42,7 +42,7 @@ app.post('/users', (request, response) => {
 });
 
 app.get('/users', (request, response) => {
-  return response.json(all);
+  return response.json(users);
 });
 
 app.get('/todos', checksExistsUserAccount, (request, response) => {
